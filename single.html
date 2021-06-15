@@ -52,7 +52,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        });
 			    });
 			   </script>
+	
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<script type="module">
+  const modelViewer = document.querySelector("model-viewer");
+
+  window.switchSrc = (element, name) => {
+    const base = "models//" + name;
+    modelViewer.src = base + '.glb';
+    modelViewer.poster = base + '.png';
+    const slides = document.querySelectorAll(".slide");
+    slides.forEach((element) => {element.classList.remove("selected");});
+    element.classList.add("selected");
+  };
+
+  document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
+    // Keep slider interactions from affecting the XR scene.
+    ev.preventDefault();
+  });
+</script>
+	
 </head>
 <body>
   <div class="header">
@@ -135,12 +155,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <model-viewer  
     ar
     ar-modes="webxr scene-viewer quick-look"
-    alt="黒革椅子"
+    alt="astronaut"
     src="models/astronaut.glb" 
     shadow-intensity="1"
     camera-controls
     auto-rotate>
+ <button slot="ar-button" id="ar-button">
+    View in your space
+  </button>
+
+  <div id="ar-prompt">
+    <img src="models/astronaut.png">
+  </div>
+
+  <button id="ar-failure">
+    AR is not tracking!
+  </button>
+
+  <div class="slider">
+    <div class="slides">
+      <button class="slide selected" onclick="switchSrc(this, 'astronaut')" style="background-image: url('models/astronaut.png');">
+
+      </button><button class="slide" onclick="switchSrc(this, 'astronaut')" style="background-image: url('models/astronaut.png');">
+
+      </button><button class="slide" onclick="switchSrc(this, 'astronaut')" style="background-image: url('models/astronaut.png');">
+      
+      </button><button class="slide" onclick="switchSrc(this, 'astronaut')" style="background-image: url('models/astronaut.png');">
+      
+      </button><button class="slide" onclick="switchSrc(this, 'astronaut')" style="background-image: url('models/astronaut.png');">    
+    </button></div>
+  </div>
     </model-viewer>
+
 				   <div class="flexslider">
 					 <ul class="slides">
 						<li data-thumb="images/s1.jpg">
